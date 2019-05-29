@@ -1,0 +1,31 @@
+<button mat-icon-button (click)="newOrder($event)">
+  Crear Order
+  <mat-icon>add_circle</mat-icon>
+
+</button> 
+<br>
+<div>
+  <ul>
+    <li *ngFor ="let ord of Orders" (click)="onSelect(ord)">
+       <span> {{ord.OrderID}}</span>
+    </li>
+  </ul>
+</div> 
+<br>
+<app-order-detail [orderDetail]="OrderSelect"></app-order-detail>
+<br>
+<mat-input-container>
+  <input matInput placeholder="Buscar" [(ngModel)]="search" (keyup)="searchgrid()">
+</mat-input-container>	
+<mat-icon>search</mat-icon>	
+<br>
+<ag-grid-angular
+style="width: 1300px; height: 1000px;"
+[gridOptions]="gridOptions"
+(gridReady) = "gridReady($event)"
+class="ag-theme-balham"
+(cellDoubleClicked)="onCellDoubleClicked($event)"
+(cellClicked)="onCellClicked($event)"
+>
+
+</ag-grid-angular>

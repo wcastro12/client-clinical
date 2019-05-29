@@ -1,0 +1,100 @@
+<div style="display:flex;" id="mydiv">
+
+		<form novalidate [formGroup]="order" style="border:solid 1px">
+			<div style="text-align: center;">
+			<mat-card  >
+				<mat-card-header class="cardHeader" id="mydivheader">
+					<mat-card-title > 
+						{{title}}
+						<br>
+						<div style="color:red;">
+						{{error}}
+					</div>
+					</mat-card-title>
+          <br>
+				 <mat-card-subtitle>
+            <div *ngIf="!IsUpdate">
+              <mat-select  placeholder="Paciente" (change)="changePatient($event)" formControlName="patient" >
+                <mat-option  *ngFor="let type of PatientEntity" [value]="type">
+                  {{type.Name +' '+ type.LastName}}
+                </mat-option>
+              </mat-select>
+            </div>
+            <div *ngIf="IsUpdate">
+                <mat-input-container>
+                    <input matInput placeholder="Paciente" formControlName="pacienteUpdate">
+                </mat-input-container>			
+              </div>
+					</mat-card-subtitle> 
+				</mat-card-header>
+			</mat-card>
+		</div>
+			<div style="padding:1em; display:flex;">
+        <div style="width:300px;">
+          
+            <div *ngIf="!IsUpdate" >
+                <mat-input-container >
+                    <input matInput placeholder="Estado" formControlName="stateCreate">
+                </mat-input-container>										
+              </div>
+          <br>
+          <div *ngIf="IsUpdate">
+
+						<mat-select   placeholder="Estado" (change)="changeState($event)" formControlName="stateUpdate" >
+							<mat-option *ngFor="let type of State" [value]="type">
+								{{type.value}}
+							</mat-option>
+            </mat-select>
+            <br>
+            <br>
+						<mat-input-container>
+                <textarea matInput placeholder="Descripcio cambio de estado" formControlName="reason" (blur)="blurreason($event)"></textarea>
+            </mat-input-container>		
+          </div>
+          <br>
+					<div *ngIf="!IsUpdate">
+						<mat-select placeholder="Tipo Orden" (change)="changeTypeOrder($event)" formControlName="typeOrder" >
+							<mat-option *ngFor="let type of TypeOrder" [value]="type">
+								{{type.value}}
+							</mat-option>
+            </mat-select>
+          </div>
+
+          <br>
+          <div *ngIf="!IsUpdate">
+						<mat-input-container>
+							<textarea matInput placeholder="Descripcion" formControlName="description" (blur)="blurDescription($event)"></textarea>
+						</mat-input-container>										
+					</div>
+          <br>
+					<div *ngIf="!IsUpdate">
+						<mat-select  placeholder="Prioridad" (change)="changePriority($event)" formControlName="priority" >
+							<mat-option *ngFor="let type of Priority" [value]="type">
+								{{type.value}}
+							</mat-option>
+						</mat-select>
+          </div>
+          <br>
+          <div  *ngIf="!IsUpdate" >
+						<mat-input-container>
+							<textarea matInput placeholder="Posología" formControlName="posologia" (blur)="blurPosologia($event)"></textarea>
+						</mat-input-container>										
+					</div>
+
+					<div style="text-align: center;">
+						
+							<button *ngIf="!IsUpdate"  mat-raised-button (click)="createOrder($event)">
+					     Crear
+							</button>
+							<button *ngIf="IsUpdate"  mat-raised-button (click)="modifyOrder($event)">
+								Modificar
+							</button> 
+						    <button mat-raised-button (click)="cancelar()">Cancelar</button>
+					</div>
+				</div>
+
+			</div>
+		</form>
+
+
+</div>
